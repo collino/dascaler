@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	
+	
+	<!-- 
+		
+		TODO
+		
+		1. Clean up CSS
+		2. Migrate into UXA-T toolbox
+		3. Simplify JS
+		4. Add icons
+		
+	
+	-->
+		
+	
+	
+	
+		<meta charset="UTF-8">
+		<title>Responsive Project</title>
+		<link rel="stylesheet" href="./all.css">
+		<style>
+			body {
+				padding-top: 72px;
+			}
+		    .project {
+		        
+		    }
+		    header {
+		    	background-color: white;
+		    	box-shadow: 0 -1px 0 0 rgba(0,0,0,0.04),
+							0 1px 0 0 rgba(0,0,0,0.10),
+							0 2px 1px 0 rgba(0,0,0,0.04),
+							inset 0 1px 0 0 rgba(255,255,255,0.50);
+				height: 80px;
+		    	padding: 16px;
+		    	position: fixed;
+		    	top: 0;
+		    	width: 100%;
+		    	z-index: 200;
+		    }
+
+		    .inner-label {
+		    	display: inline-block;
+		    	position: relative;
+		    }
+		    	.inner-label > small {
+		    		color: #aaa;
+					top: 1px;
+					left: 1px;
+					background-color: #eee;
+					line-height: 38px;
+					padding: 0 8px;
+					position: absolute;
+					width: 48px;
+		    	}
+
+		    #frame-loader .btn,
+		    #frame-loader input {
+		    	height: 40px;
+		    }
+
+		    #frame-loader input[type="text"] {
+		    	padding-left: 56px;
+		    	margin: 0;
+		    }
+
+		    #frame-loader {
+		    	float: left;
+		    	padding: 4px 0;
+		    }
+		    #frame-responder {
+		    	float: right;
+		    	line-height: 24px;
+		    }
+
+		    /* Switcher */
+		    #frame-responder input[type="radio"] {
+				position:absolute;
+				clip: rect(0,0,0,0);
+				clip: rect(0 0 0 0);
+			}
+
+			label[for] {
+				border: solid #ccc;
+				overflow: hidden;
+				white-space: nowrap;
+				text-indent: 100%;
+				display: inline-block;
+				margin-left: 4px;
+				-webkit-transform: all .25s;
+				transform: all .25s;
+			}
+			label[for]:hover {
+				border-color: #aaa;
+				cursor: pointer;
+			}
+			label[for="mobile"] {
+				border-radius: 2px;
+				border-width: 2px;
+				border-bottom-width: 4px;
+				border-top-width: 4px;
+				height: 24px;
+				width: 16px;
+			}
+			label[for="mobile-land"] {
+				border-radius: 2px;
+				border-width: 2px;
+				border-left-width: 4px;
+				border-right-width: 4px;
+				height: 16px;
+				width: 24px;
+			}
+			label[for="tablet"] {
+				border-radius: 4px;
+				border-width: 4px;
+				width: 30px;
+				height: 40px;
+			}
+			label[for="tablet-land"] {
+				border-radius: 4px;
+				border-width: 4px;
+				width: 40px;
+				height: 30px;
+			}
+			label[for="desktop"] {
+				border-radius: 4px;
+				border-width: 4px;
+				width: 64px;
+				height: 48px;
+			}
+
+		    
+			.frame-container {
+			    background: url(https://dl.dropbox.com/u/1220158/assets/img/loader.gif) no-repeat center center;
+				-webkit-box-sizing: content-box;
+						box-sizing: content-box;
+				margin: 26px auto;
+				padding-bottom: 568px;
+				position: relative;
+				height: 0;
+				width: 320px;
+				-webkit-transition: all .5s ease;
+				   -moz-transition: all .5s ease;
+				     -o-transition: all .5s ease;
+				        transition: all .5s ease;
+			}
+			.frame-container > iframe {
+				border: 1px solid rgba(0,0,0,0.05);
+				height: 100%;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+			
+			/*look like a phone and shiat*/
+			.frame-container {
+				border-radius: 3em;
+				border: solid #fff;
+				border-width: 100px 14px;
+				box-shadow: 
+					0 1px 20px rgba(0,0,0,0.1),
+					0 0 1px rgba(0,0,0,0.1);
+			}
+			
+			/*state*/
+			.frame-container.mobile-land {
+				border-width: 14px 100px;
+				padding-bottom: 320px;
+				width: 568px;
+			}
+			.frame-container.tablet {
+				border-radius: 2em;
+				border-width: 75px;
+				padding-bottom: 1024px;
+				width: 768px;
+			}
+			.frame-container.tablet-land {
+				border-radius: 2em;
+				border-width: 75px;
+				padding-bottom: 768px;
+				width: 1024px;
+			}
+			.frame-container.desktop {
+				border-radius: 0;
+				border-width: 0;
+				bottom: 0;
+				height: auto;
+				margin: auto;
+				padding: 0;
+				position: absolute;
+				top: 72px; /* LESS */
+				width: 100%;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<article class="project">
+			<header>
+				<!-- <h1 class="project-title">Project title</h1> -->   <!-- Get value from title tag? - can't do this with JS -->
+				<div class="respond-view">
+					<form action="#" id="frame-loader">
+						<label class="inner-label">
+							<small>http://</small><input type="text" placeholder="domain.com">
+						</label>
+						<input type="submit" value="Go" class="btn">
+						<button id="frame-refresh" class="btn">Refresh</button>
+					</form>
+					<div id="frame-responder">
+						
+						<input type="radio" id="mobile" name="resp" value="mobile" checked>
+						<label for="mobile">Mobile <abbr title="Portrait">P</abbr></label>
+						
+						<input type="radio" id="mobile-land" name="resp" value="mobile-land">
+						<label for="mobile-land"> Mobile <abbr title="Landscape">LS</abbr></label>
+						
+						<input type="radio" id="tablet" name="resp" value="tablet">
+						<label for="tablet">Tablet <abbr title="Portrait">P</abbr></label>
+						
+						<input type="radio" id="tablet-land" name="resp" value="tablet-land">
+						<label for="tablet-land">Tablet <accronym name="Landscape">LS</accronym></label>
+						
+						<input type="radio" id="desktop" name="resp" value="desktop">
+						<label for="desktop">Desktop</label>
+						
+						<!-- <span>Custom</span>
+						<label>
+							Width: <input type="number" name="resp" placeholder="460">
+						</label>
+						<label>
+							Height: <input type="number" name="resp" placeholder="780">
+						</label> -->
+					</div>
+				</div>
+			</header>
+			<div role="main">
+				<div class="frame-container">
+					<iframe src="//roblukedesign.com/trunk/trunk.html" frameborder="0" id="frame-view"></iframe>
+				</div>
+			</div>
+		</article>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			var c = $(".frame-container");
+			var f = c.find("iframe")[0];
+
+			var loader = $("#frame-loader");
+			var u = $(".respond-view [type=text]");
+			var r = $(".respond-view [type=radio]");
+			var b = $("button");
+
+			// Load content
+			loader.submit(function(event) {
+				$(f).attr("src", "//" + u.val());
+				event.preventDefault();
+			});
+
+			// Refresh content
+			loader.find("#frame-refresh").click(function(event) {
+				f.src = f.src;
+				event.preventDefault();
+			});
+
+			// Change view
+			r.change(function () {
+				var rval = $(this).val();
+			    $(r).each(function () {
+			        $(c).removeClass($(this).val());
+			    })
+			    $(c).addClass(rval);
+			});
+
+			// Dropdown
+			$(".dropdown").find("input").change(function(event) {
+				var t = $(this).parents("label").text();
+				
+				$(this).parents(".dropdown").removeAttr("open");
+				$(this).parents(".dropdown").find("summary").text(t);
+			});
+		</script>
+	</body>
+</html>
